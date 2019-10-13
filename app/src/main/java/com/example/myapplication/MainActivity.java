@@ -4,9 +4,19 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.io.IOException;
+
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -37,7 +47,12 @@ public class MainActivity extends AppCompatActivity {
         }.start();
     }
 
+    public void sendMessage(View view) {
+        EditText editText = (EditText) findViewById(R.id.editText);
+        String message = editText.getText().toString();
+        AsyncTask asyncTask = new SendData().execute(message);
 
+    }
 
 
 

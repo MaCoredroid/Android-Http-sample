@@ -35,7 +35,7 @@ public class GetData extends AsyncTask<String, Void, String> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        ans="温度："+responseData.substring(120, 126)+"°C";
+        ans="温度："+responseData.substring(121, 123)+"°C";
         Request request1 = new Request.Builder()
                 .header("api-key", "V5BBXsih6tOyXroC==dwuTCIRtA=")
                 .url("http://api.heclouds.com/devices/553304452/datastreams/moisture")
@@ -48,8 +48,20 @@ public class GetData extends AsyncTask<String, Void, String> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        ans+="\n湿度："+responseData1.substring(114, 116)+"%";
-
+        ans+="\n湿度："+responseData1.substring(113, 115)+"%";
+        Request request2 = new Request.Builder()
+                .header("api-key", "V5BBXsih6tOyXroC==dwuTCIRtA=")
+                .url("http://api.heclouds.com/devices/553304452/datastreams/threshold")
+                .get()
+                .build();
+        String responseData2="";
+        try {
+            Response response = client.newCall(request2).execute();
+            responseData2 = response.body().string();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        ans+="\n湿度边界值："+responseData2.substring(114, 116)+"%";
 
         return ans;
     }
